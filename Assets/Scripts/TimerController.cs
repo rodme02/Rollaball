@@ -1,44 +1,50 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI; // For displaying the timer using UI
-using System.Collections;
 
 public class TimerController : MonoBehaviour
 {
-    public Text timerText;  // UI Text element to display the timer
-    private float timeElapsed = 0f;  // Time in seconds
-    private bool isTimerRunning = true;  // Control if the timer is active
+    public TextMeshProUGUI timerText;  // Reference to the TMP Text for the timer
+
+    private float timeElapsed = 0f;    // Tracks time in seconds
+    private bool isTimerRunning = true;
 
     void Update()
     {
-        // If the timer is running, update the time
-        if (isTimerRunning)
+        if (isTimerRunning && !GameManager.Instance.isGamePaused)
         {
-            // Increment the timer
             timeElapsed += Time.deltaTime;
-
-            // Update the timer display
             UpdateTimerDisplay();
         }
     }
 
-    // Call this method to reduce time (for example, when collecting a pickup)
+    private void UpdateTimerDisplay()
+    {
+        int minutes = Mathf.FloorToInt(timeElapsed / 60);
+        int seconds = Mathf.FloorToInt(timeElapsed % 60);
+        timerText.text = $"{minutes:00}:{seconds:00}";
+    }
+
+    // Method to reduce time (called when a pickup is collected)
     public void ReduceTime(float amount)
     {
-        // Subtract time (e.g., 5 seconds) but don't let the time go below 0
+        // Subtract time but don't let it go below zero
         timeElapsed = Mathf.Max(0f, timeElapsed - amount);
-
-        // Update the timer display immediately
         UpdateTimerDisplay();
     }
 
-    // Method to update the timer text display
-    void UpdateTimerDisplay()
+    public void StopTimer()
     {
-        // Format timeElapsed as minutes:seconds (00:00 format)
-        int minutes = Mathf.FloorToInt(timeElapsed / 60);
-        int seconds = Mathf.FloorToInt(timeElapsed % 60);
+        isTimerRunning = false;
+    }
 
-        // Display the time
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    public void StartTimer()
+    {
+        isTimerRunning = true;
+    }
+
+    public void ResetTimer()
+    {
+        timeElapsed = 0f;
+        UpdateTimerDisplay();
     }
 }

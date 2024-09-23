@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PickUp
   - DeathZone
+  - GroundWin
+  - Enemy
   layers:
   - Default
   - TransparentFX

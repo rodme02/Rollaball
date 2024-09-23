@@ -3,20 +3,35 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    // This method will be called when the "Start Game" button is clicked
-    public void StartGame()
+    public static SceneLoader Instance;
+
+    private void Awake()
     {
-        // Load the GameScene and ensure the MainMenu is fully unloaded
-        SceneManager.LoadScene("MiniGame", LoadSceneMode.Single);  // Replace "GameScene" with the actual name of your game scene
-        
-        // Rebuild the lighting environment after the scene is loaded to avoid lighting artifacts
-        DynamicGI.UpdateEnvironment();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // This method will be called when the "Quit" button is clicked
+    // Load a specific scene by name
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    // Reload the current scene
+    public void ReloadCurrentScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // Quit the application
     public void QuitGame()
     {
-        Debug.Log("Quit the game!");
-        Application.Quit();  // Exits the game application
+        Application.Quit();
     }
 }
