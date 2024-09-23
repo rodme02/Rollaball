@@ -1,6 +1,6 @@
 # Fall-Ball
 
-### Rodrigo Paoliello de Medeiros
+## Rodrigo Paoliello de Medeiros
 
 Fall-Ball is a fast-paced, physics-based 3D game where you control a ball through a challenging environment filled with obstacles, pickups, and enemies. Your objective is to collect the pickup items while racing against time, avoid enemies, and make it to the winning platform without losing all your lives. 
 
