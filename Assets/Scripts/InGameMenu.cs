@@ -45,10 +45,10 @@ public class InGameMenuController : MonoBehaviour
         SceneManager.LoadScene("MainMenu"); // Replace "MainMenu" with your actual Main Menu scene name
     }
 
-    // Quit the game
-    public void QuitGame()
+    // Restart the current game scene
+    public void RestartGame()
     {
-        Debug.Log("Quitting game...");
-        Application.Quit();             // Quit the game (works in built versions of the game)
+        Time.timeScale = 1f;  // Ensure the game is unpaused before reloading
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // Reloads the currently active scene
     }
 }
